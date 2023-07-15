@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     // Where files should be sent once they are bundled
@@ -41,11 +42,11 @@ module.exports = {
           'sass-loader'
         ],
       },
-      {
-        test: /\.woff2?$/i,
-        type: 'asset/resource',
-        dependency: { not: ['url'] },
-      }, 
+      // {
+      //   test: /\.woff2?$/i,
+      //   type: 'asset/resource',
+      //   dependency: { not: ['url'] },
+      // }, 
     ]
   },
   plugins: [
@@ -56,6 +57,11 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: 'styles.css',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/fonts', to: 'fonts' },
+      ],
     }),
   ],
 }
