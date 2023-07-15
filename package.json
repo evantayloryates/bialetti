@@ -2,6 +2,7 @@
   "name": "bialetti",
   "version": "1.0.0",
   "description": "A runnable HTML5 video display ad, used only for testing purposes",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development",
