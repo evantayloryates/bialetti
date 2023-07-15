@@ -42,17 +42,10 @@ module.exports = {
         ],
       },
       {
-        test: /\.(woff2)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/'
-            }
-          }
-        ]
-      },
+        test: /\.woff2?$/i,
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+      }, 
     ]
   },
   plugins: [
