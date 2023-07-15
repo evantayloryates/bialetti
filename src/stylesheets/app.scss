@@ -1,0 +1,9 @@
+@import 'fonts';
+@import 'constants';
+@import 'mixins';
+
+* {
+  font-family: 'Netflix Sans', sans-serif;
+}
+
+@import 'components';
