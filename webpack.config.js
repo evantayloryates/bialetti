@@ -43,10 +43,24 @@ module.exports = {
         ],
       },
       // {
-      //   test: /\.woff2?$/i,
-      //   type: 'asset/resource',
-      //   dependency: { not: ['url'] },
-      // }, 
+      //   test: /\.(woff2?)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 8192, // adjust the limit if needed
+      //         name: '[name].[ext]',
+      //         outputPath: 'fonts/',
+      //         publicPath: 'fonts/', // update the publicPath to match your output folder
+      //       },
+      //     },
+      //   ],
+      // },
+      {
+        test: /\.woff2?$/i,
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+      }, 
     ]
   },
   plugins: [
