@@ -1,14 +1,16 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+console.log('process.env.NODE_ENV: ', process.env.NODE_ENV)
 
 module.exports = {
     // Where files should be sent once they are bundled
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.bundle.js',
-    publicPath: process.env.NODE_ENV === 'production' ? '/bialetti/' : '/',
+    publicPath: process.env.NODE_ENV === 'staging' ? '/bialetti/' : '/',
     clean: true,
   },
   resolve: {
@@ -42,20 +44,6 @@ module.exports = {
           'sass-loader'
         ],
       },
-      // {
-      //   test: /\.(woff2?)$/,
-      //   use: [
-      //     {
-      //       loader: 'url-loader',
-      //       options: {
-      //         limit: 8192, // adjust the limit if needed
-      //         name: '[name].[ext]',
-      //         outputPath: 'fonts/',
-      //         publicPath: 'fonts/', // update the publicPath to match your output folder
-      //       },
-      //     },
-      //   ],
-      // },
       {
         test: /\.woff2?$/i,
         type: 'asset/resource',
@@ -72,10 +60,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'styles.css',
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: 'src/fonts', to: 'fonts' },
-      ],
+    new Dotenv({ 
+      path: path.resolve(__dirname, `./.env.${process.env.NODE_ENV}`)
     }),
   ],
 }
