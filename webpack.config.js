@@ -2,6 +2,7 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 console.log('process.env.NODE_ENV: ', process.env.NODE_ENV)
 
@@ -44,11 +45,6 @@ module.exports = {
           'sass-loader'
         ],
       },
-      {
-        test: /\.woff2?$/i,
-        type: 'asset/resource',
-        dependency: { not: ['url'] },
-      }, 
     ]
   },
   plugins: [
@@ -64,4 +60,17 @@ module.exports = {
       path: path.resolve(__dirname, `./.env.${process.env.NODE_ENV}`)
     }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+      }),
+    ],
+  }
 }
