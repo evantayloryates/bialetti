@@ -1,0 +1,1 @@
+zip -r dist/index.zip dist/*.{html,bundle.js,css}
