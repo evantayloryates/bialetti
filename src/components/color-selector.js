@@ -15,9 +15,8 @@ const ColorSelector = ({ id, styleColor, onEvent, onClick, selected }) => {
   const getStyles = () => {
     const selectedStyles = {
       ...baseStyles,
-      // filter: "brightness(0.7)",
-      // border: `1px solid ${styleColor}`,
-      // boxShadow: `0px 0px 0px 1px ${styleColor}`,
+      pointerEvents: "none",
+      // TODO: add more styles specific to selected elements
     }
     return selected ? selectedStyles : baseStyles;
   }
@@ -31,7 +30,8 @@ const ColorSelector = ({ id, styleColor, onEvent, onClick, selected }) => {
   return (
     <div className="color-selector-container" onClick={handleClick}>
       <div style={getStyles()} />
-      {selected && <div className="selection-indicator"/> }
+      {/* {selected && <div className="selection-indicator"/> } */}
+      <div className={`selection-indicator ${selected && 'active'}`}/>
     </div>
   )
   }

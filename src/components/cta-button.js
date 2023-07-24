@@ -11,7 +11,7 @@ const CTAButton = ({ onEvent, onClick, bgColor }) => {
 
   return (
     <div className='product-overlay-cta' style={{backgroundColor: bgColor}} onClick={handleClick}>
-      <div>Buy Now</div>
+      <div className='product-cta-button'>Buy Now</div>
       <ExternalLinkIcon />
     </div>
   )

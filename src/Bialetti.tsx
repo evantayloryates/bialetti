@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { 
   PlayIcon, 
   VolumeIcon, 
@@ -10,6 +10,7 @@ import {
   BrandBadge, 
   CTAButton,
   FilmLogo,
+  ProductMedia,
 } from './components'
 
 
@@ -101,7 +102,7 @@ const colors = {
   'steel': {
     id: 'steel',
     displayName: 'Steel',
-    styleColor: 'rgb(209, 209, 209)',
+    styleColor: 'rgb(188 192 200)',
     default: true,
     img: "https://bialetti-assets.s3.us-west-1.amazonaws.com/colors/steel_product.png",
     price: '38.10',
@@ -234,9 +235,11 @@ const Bialetti = () => {
   }
   const calcPlaytimeData = (video) => {
     if (video) {
+      const currentSeconds = Math.round(video.currentTime) || INITIAL_PLAYTIME_DATA.currentSeconds;
+      const totalSeconds = Math.floor(video.duration) || INITIAL_PLAYTIME_DATA.totalSeconds;
       return {
-        currentSeconds: Math.floor(video.currentTime) || INITIAL_PLAYTIME_DATA.currentSeconds,
-        totalSeconds: Math.floor(video.duration) || INITIAL_PLAYTIME_DATA.totalSeconds,
+        currentSeconds: Math.min(currentSeconds, totalSeconds),
+        totalSeconds
       }
     } else { 
       return INITIAL_PLAYTIME_DATA;
@@ -320,7 +323,7 @@ const Bialetti = () => {
         </div>
         <div className='product-layer'>
           <MokapotIcon focused={productPopperFocused && !inOverlayMode()} onEvent={handleEvent} onClick={handleProductPopperClick}/>
-          <FilmLogo visibilityClass={preMediaVisibilityClass} onEvent={handleEvent} onClick={() => { window.open("https://www.youtube.com/watch?v=1y3h0B2b-HA", '_blank')}}/>
+          <FilmLogo visibilityClass={preMediaVisibilityClass} onEvent={handleEvent} onClick={() => { window.open(window.clickTag, '_blank')}}/>
         </div>
         <div className={`product-overlay ${productOverlayClass}`}>
           <div className='product-overlay-panel'>
@@ -338,9 +341,15 @@ const Bialetti = () => {
             </div>
             <div className='product-column'>
               <BrandBadge onEvent={handleEvent} onClick={() => { window.open('https://www.bialetti.com/', '_blank')}} />
+              { Object.values(colors).map(c => (
+                <ProductMedia src={c.img} active={activeColor === c.id}/>
+              ))}
+              {/* <img className='product-media' src={getMedia(colors[activeColor].img)} />
               <img className='product-media' src={getMedia(colors[activeColor].img)} />
+              <img className='product-media' src={getMedia(colors[activeColor].img)} /> */}
               <div className="product-glow"/>              
             </div>
+            
             <CTAButton bgColor={colors[activeColor].styleColor} onEvent={handleEvent} onClick={() => { window.open(colors[activeColor].href, '_blank')}}/>
             <div className='actions-column'>
               <CloseIcon onEvent={handleEvent} onClick={handleCloseIconClick}/>

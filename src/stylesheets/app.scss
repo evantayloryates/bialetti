@@ -19,8 +19,10 @@ $latent-opacity: 35%;
 
 
 * {
-  font-family: 'Netflix Sans', serif;
+  font-family: 'Inter', serif;
   -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .app-container {
@@ -95,7 +97,7 @@ $latent-opacity: 35%;
 }
 .product-overlay {
   position: absolute;
-  transition: opacity .4s ease-out, top .15s ease-in-out;
+  transition: opacity .4s ease-out, transform .15s ease-out;
   height: 234px;
   left: 0;
   right: 0;
@@ -105,11 +107,12 @@ $latent-opacity: 35%;
   padding: 8px;
 }
 .product-overlay.inactive {
-  top: 250px;
+  transform: translateY(250px);
   opacity: 0;
   pointer-events: none;
 }
 .product-overlay.active {
+  transform: translateY(0);
   top: 0;
   opacity: 1;
 }
@@ -162,26 +165,26 @@ $latent-opacity: 35%;
 .product-overlay-price {
   color: #101010;
   font-size: .9em;
-  font-family: 'Netflix Sans';
+  font-family: 'Inter';
 }
+
 .product-overlay-cta {
   position: absolute;
   bottom: 7px;
   width: 150px;
   left: 50%;
   transform: translateX(-50%);
-  transition: filter .1s ease-out;
+  transition: filter .1s ease-out, background-color .3s ease-out;
   cursor: pointer;
-  height: 25px;
-  padding: 4px 10px;
-  // background-color: rgba(254,	164, 32, .8);
-  // color: rgb(49, 53, 50);
+  height: 23px;
+  padding: 6px 10px 4px 10px;
   color: white;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  box-shadow: 1px 1px 1px 0px #b0b0b0;
+  text-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
   font-size: 1.1em;
   border-radius: 20px;
-  font-family: 'Netflix Sans';
+  font-family: 'Inter';
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,7 +192,12 @@ $latent-opacity: 35%;
 }
 
 .no-touch .product-overlay-cta:hover {
-  filter: brightness(92%);
+  filter: brightness(95%);
+}
+
+.product-cta-button {
+  line-height: 20px;
+  font-weight: 600;
 }
 
 .product-media {
@@ -199,6 +207,11 @@ $latent-opacity: 35%;
   top: 15px;
   left: 50%;
   transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity .15s ease-out;
+  &.active {
+    opacity: 1;  
+  }
 }
 
 .brand-badge {
@@ -230,7 +243,7 @@ $latent-opacity: 35%;
 }
 
 .panel-close-btn {
-  transition: filter .1s ease-out;
+  transition: filter .15s ease-out;
   cursor: pointer;
   width: 26px;
   height: 26px;
@@ -353,7 +366,6 @@ $latent-opacity: 35%;
 }
 
 .progress-bar-complete {
-  /* background-color: #FF0800; */
   background-color: #00aaff;
   height: 3px;
   top: 0;
@@ -367,24 +379,37 @@ $latent-opacity: 35%;
   -o-transition: opacity .4s ease-out;
   transition: opacity .4s ease-out;
   color: hsla(0,0%,100%,.7);
-  font-weight: 500;
-  font-family: 'Netflix Sans';
+  font-weight: 600;
+  font-size: .95em;
+  transform: scaleY(0.92);
+  font-family: 'Inter';
   align-self: end;
 }
 
 .color-selector-container {
   position: relative;
 }
+
 .selection-indicator {
   width: 28px;
   height: 28px;
   border-radius: 50%; 
-  background-color: white;
-  opacity: 30%;
+  background: radial-gradient(
+    rgb(255, 255, 255, 1) 0%,
+    rgb(255, 255, 255, 1) 10%,
+    rgb(255, 255, 255, 0) 70%);
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -52%);
+  transition: opacity 0.15s ease-out;
+  
+  opacity: 0%;
+  &.active {
+    opacity: 73%;
+  }
+  pointer-events: none;
+
 }
 
 .product-glow {
